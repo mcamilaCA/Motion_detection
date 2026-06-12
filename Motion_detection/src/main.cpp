@@ -1,18 +1,27 @@
 #include <Arduino.h>
 
-// put function declarations here:
-int myFunction(int, int);
+int pir_pin = 7;
+int led_pin = 13; 
+
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  pinMode(pir_pin, INPUT);
+  pinMode(led_pin, OUTPUT);
+
+  digitalWrite(led_pin, LOW);
+  Serial.begin(9600);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
+  int pir_state = digitalRead(pir_pin);
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+  if (pir_state == HIGH){
+    digitalWrite(led_pin, HIGH);
+    Serial.println("There is motion!");
+
+    delay(1000);
+  }
+  else{
+    digitalWrite(led_pin, LOW);
+  }
 }
